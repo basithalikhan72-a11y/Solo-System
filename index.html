@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#061225">
+<meta name="description" content="Solo System — your personal real-life quest system">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+<title>Solo System</title>
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar">
+    <div class="brand-mark">◇</div>
+    <div><div class="brand">SOLO SYSTEM</div><div class="subbrand">YOUR LIFE. YOUR QUEST.</div></div>
+    <button id="settingsToggle" class="icon-button" aria-label="Settings">⚙</button>
+  </header>
+
+  <main>
+    <section class="hero panel">
+      <div class="hero-copy">
+        <div class="eyebrow">PLAYER STATUS <span class="live-dot"></span></div>
+        <h1 id="playerName">PLAYER</h1>
+        <div class="rank-line"><span class="rank-chip">HUNTER RANK</span><span id="levelLabel">LV. 1</span></div>
+        <div class="xp-meta"><span id="xpLabel">0 / 500 XP</span><span id="xpPercent">0%</span></div>
+        <div class="progress"><div id="xpBar" class="progress-fill"></div></div>
+      </div>
+      <div class="sigil" aria-hidden="true">✦</div>
+      <div class="hero-foot"><span>DAILY STREAK</span><strong>🔥 <span id="streakLabel">0</span> DAYS</strong><span class="divider-v"></span><span>TOTAL XP</span><strong id="totalXpLabel">0</strong></div>
+    </section>
+
+    <nav class="tabs" aria-label="Main sections">
+      <button class="tab active" data-tab="quests">⚔ Quests</button>
+      <button class="tab" data-tab="stats">◈ Stats</button>
+      <button class="tab" data-tab="boss">✦ Weekly Boss</button>
+      <button class="tab" data-tab="settings">⚙ Setup</button>
+    </nav>
+
+    <section id="quests" class="view active">
+      <div class="section-heading"><div><div class="eyebrow">MISSION BOARD</div><h2>Daily Quests</h2></div><span id="questCount" class="counter">0 / 0</span></div>
+      <div class="notice"><strong>System message</strong><span>Approve your quests before they become today's missions.</span></div>
+      <div id="pendingBox" class="panel pending-box">
+        <div class="row-between"><h3>Suggested quests</h3><span class="tag">AWAITING APPROVAL</span></div>
+        <div id="suggestions" class="quest-list"></div>
+        <button id="approveAll" class="primary-button">APPROVE SELECTED QUESTS ↗</button>
+        <button id="reroll" class="secondary-button">Generate new suggestions</button>
+      </div>
+      <div class="panel">
+        <div class="row-between"><h3>Active missions</h3><span class="tag blue">TODAY</span></div>
+        <div id="activeQuests" class="quest-list"></div>
+        <div id="emptyActive" class="empty-state">No active quests yet. Approve suggestions above to begin.</div>
+      </div>
+      <div id="missedPanel" class="panel hidden">
+        <div class="row-between"><h3>Missed quest recovery</h3><span class="tag red">RECOVERY</span></div>
+        <p class="muted">A missed quest doesn't erase your progress. Choose a safe recovery option or mark a valid exception.</p>
+        <div id="missedQuests" class="quest-list"></div>
+      </div>
+    </section>
+
+    <section id="stats" class="view">
+      <div class="section-heading"><div><div class="eyebrow">PLAYER PROFILE</div><h2>Attributes</h2></div><span class="tag blue">HUNTER</span></div>
+      <div class="panel">
+        <div class="level-ring"><div><strong id="statsLevel">1</strong><span>LEVEL</span></div></div>
+        <div id="statRows" class="stat-rows"></div>
+      </div>
+      <div class="grid-two">
+        <div class="mini-panel"><span class="muted">QUESTS CLEARED</span><strong id="clearedCount">0</strong></div>
+        <div class="mini-panel"><span class="muted">COMPLETION RATE</span><strong id="completionRate">0%</strong></div>
+        <div class="mini-panel"><span class="muted">RECOVERY MISSIONS</span><strong id="recoveryCount">0</strong></div>
+        <div class="mini-panel"><span class="muted">CURRENT STREAK</span><strong id="statsStreak">0 days</strong></div>
+      </div>
+    </section>
+
+    <section id="boss" class="view">
+      <div class="section-heading"><div><div class="eyebrow">WEEKLY CHALLENGE</div><h2>Boss Battle</h2></div><span class="tag">WEEK 01</span></div>
+      <div class="boss-art"><div class="boss-symbol">♜</div><div class="eyebrow">TARGET IDENTIFIED</div><h2>THE PROCRASTINATION KING</h2><p>Win the week through consistency, not perfection.</p></div>
+      <div class="panel">
+        <h3>Boss objectives</h3>
+        <div id="bossGoals" class="boss-goals"></div>
+        <div class="row-between reward-row"><span>Clear reward</span><strong>+200 XP · BOSS CLEAR</strong></div>
+        <button id="claimBoss" class="primary-button">CLAIM BOSS REWARD</button>
+        <p class="small muted">The reward is claimable once all objectives are completed. Goals are flexible and should never replace rest or health needs.</p>
+      </div>
+    </section>
+
+    <section id="settings" class="view">
+      <div class="section-heading"><div><div class="eyebrow">SYSTEM CONFIGURATION</div><h2>Setup</h2></div></div>
+      <div class="panel form-panel">
+        <label>Player name<input id="nameInput" maxlength="24" placeholder="Your player name"></label>
+        <label>Daily quest difficulty<select id="difficultyInput"><option>Hunter</option><option>E-Rank</option><option>Shadow Monarch</option></select></label>
+        <label>Daily focus areas<select id="focusInput" multiple size="5"><option>University & studying</option><option>Fitness</option><option>Discipline & habits</option><option>Sleep & daily routine</option><option>Confidence & social skills</option></select><span class="small muted">Use Ctrl/Command to select multiple on desktop.</span></label>
+        <label>Daily screen-time target (minutes)<input id="screenTarget" type="number" min="15" max="600" value="120"></label>
+        <button id="saveSettings" class="primary-button">SAVE PLAYER SETTINGS</button>
+      </div>
+      <div class="panel">
+        <h3>Phone control status</h3>
+        <div class="status-line"><span class="status-dot"></span><span><strong>Web starter mode</strong><br><span class="muted small">This version cannot read or block other apps on your phone.</span></span></div>
+        <p class="muted small">Use the screen-time controls built into iOS or Android for real device usage data. Native app blocking needs platform-specific permissions and implementation; see README.</p>
+        <button id="screenLogButton" class="secondary-button">Log screen time manually</button>
+        <div id="screenLogResult" class="small muted"></div>
+      </div>
+      <div class="panel">
+        <h3>Reset / safety</h3>
+        <p class="muted small">Illness, emergencies, accessibility needs, or necessary communication are valid reasons to pause. Consequences are limited to in-app XP/streak adjustments and optional recovery tasks.</p>
+        <button id="resetButton" class="danger-button">Reset local progress</button>
+      </div>
+    </section>
+  </main>
+  <footer>SOLO SYSTEM <span>·</span> DISCIPLINE IS THE REAL POWER</footer>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

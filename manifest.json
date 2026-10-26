@@ -1,0 +1,17 @@
+{
+  "name": "Solo System",
+  "short_name": "Solo System",
+  "description": "Personal real-life quest RPG",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#030914",
+  "theme_color": "#061225",
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
